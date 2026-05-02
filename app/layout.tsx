@@ -8,8 +8,8 @@ const jakarta = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-    title: "SparkleClean | High Quality Cleaning Service",
-    description: "Book your high quality cleaning service seamlessly with SparkleClean.",
+    title: "JILK Integrated Services | Professional Cleaning & Maintenance",
+    description: "Book professional cleaning and integrated maintenance services seamlessly with JILK Integrated Services.",
 };
 
 export default function RootLayout({
