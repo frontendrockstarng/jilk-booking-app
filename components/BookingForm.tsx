@@ -108,7 +108,7 @@ export const BookingForm = () => {
         return (
             <Card className="p-8 text-center bg-white shadow-xl max-w-xl mx-auto">
                 <h2 className="text-3xl font-bold text-slate-900 mb-4">Booking Confirmed!</h2>
-                <p className="text-slate-600 mb-8">Thank you for choosing SparkleClean. We've sent a confirmation to your email.</p>
+                <p className="text-slate-600 mb-8">Thank you for choosing JILK Integrated Services. We've sent a confirmation to your email.</p>
                 <Button onClick={() => window.location.reload()}>Book Another</Button>
             </Card>
         );
