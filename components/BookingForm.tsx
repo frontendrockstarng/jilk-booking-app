@@ -56,7 +56,7 @@ export const BookingForm = () => {
         setValue,
         formState: { errors }
     } = useForm<BookingFormData>({
-        resolver: zodResolver(bookingSchema),
+        resolver: zodResolver(bookingSchema) as any,
         defaultValues: {
             propertyType: 'residential',
             addons: [],
