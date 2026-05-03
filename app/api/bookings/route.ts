@@ -52,15 +52,18 @@ export async function POST(req: Request) {
         // Send emails
         try {
             if (process.env.RESEND_API_KEY) {
-                await Promise.all([
+                console.log('Attempting to send emails to:', body.email, 'and admin:', process.env.ADMIN_EMAIL);
+                const [confRes, adminRes] = await Promise.all([
                     sendConfirmationEmail(body.email, body.firstName, body),
                     sendAdminNotification(body)
                 ]);
+                console.log('Confirmation email response:', confRes);
+                console.log('Admin notification response:', adminRes);
             } else {
                 console.warn('RESEND_API_KEY not set. Skipping emails.');
             }
         } catch (emailError) {
-            console.error('Email sending error:', emailError);
+            console.error('Email sending error details:', emailError);
         }
 
         return NextResponse.json({ success: true, data: appointment });
