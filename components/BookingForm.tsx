@@ -60,8 +60,33 @@ export const BookingForm = () => {
         defaultValues: {
             propertyType: 'residential',
             addons: [],
+            preferredDate: new Date().toISOString().split('T')[0],
+            preferredTime: 'Morning',
         }
     });
+
+    const preferredDate = watch('preferredDate');
+    const preferredTime = watch('preferredTime');
+    const today = new Date().toISOString().split('T')[0];
+
+    const getTimeOptions = () => {
+        const options = [
+            { label: "Morning (8:00 AM - 12:00 PM)", value: "Morning" },
+            { label: "Afternoon (1:00 PM - 5:00 PM)", value: "Afternoon" }
+        ];
+
+        if (preferredDate === today) {
+            const currentHour = new Date().getHours();
+            return options.filter(opt => {
+                if (opt.value === 'Morning') return currentHour < 8;
+                if (opt.value === 'Afternoon') return currentHour < 13;
+                return true;
+            });
+        }
+        return options;
+    };
+
+    const timeOptions = getTimeOptions();
 
     const propertyType = watch('propertyType');
     const serviceType = watch('serviceType');
@@ -281,16 +306,16 @@ export const BookingForm = () => {
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div>
                                         <label className="block text-sm font-medium text-slate-700 mb-1">Preferred Date</label>
-                                        <Input {...register('preferredDate')} type="date" />
+                                        <Input {...register('preferredDate')} type="date" min={today} />
                                         {errors.preferredDate && <p className="text-red-500 text-xs mt-1">{errors.preferredDate.message}</p>}
                                     </div>
                                     <div>
                                         <label className="block text-sm font-medium text-slate-700 mb-1">Preferred Time</label>
-                                        <Select {...register('preferredTime')} options={[
-                                            { label: "Morning (8:00 AM - 12:00 PM)", value: "Morning" },
-                                            { label: "Afternoon (1:00 PM - 5:00 PM)", value: "Afternoon" }
-                                        ]} />
+                                        <Select {...register('preferredTime')} options={timeOptions} />
                                         {errors.preferredTime && <p className="text-red-500 text-xs mt-1">{errors.preferredTime.message}</p>}
+                                        {preferredDate === today && timeOptions.length === 0 && (
+                                            <p className="text-amber-600 text-xs mt-1">No slots left today. Please pick another date.</p>
+                                        )}
                                     </div>
 
                                     <div className="md:col-span-2">

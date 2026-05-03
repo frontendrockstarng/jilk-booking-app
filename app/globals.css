@@ -43,3 +43,20 @@ body {
 .animate-slide-in {
   animation: slide-in 0.3s ease-out;
 }
+
+/* Custom styling for date input calendar icon */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  padding: 0;
+  width: 20px;
+  height: 20px;
+  filter: invert(0.4);
+}
+
+input[type="date"] {
+  position: relative;
+}
